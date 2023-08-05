@@ -1,7 +1,18 @@
-const soma = (req, res) => {
-	const soma = 1+1
+const create = (req, res) => {
+	const {name, username, email, password } = req.body
 
-	res.send({soma: soma})
+	if(!name || !username || !email || !password){
+		res.status(400).send({message: "submit all fields"})
+	}
+
+	res.status(201).send({
+		message: "user created successfully",
+		user: {
+			name,
+			username,
+			email
+		}
+	})
 }
 
-module.exports = { soma }
+module.exports = { create }
