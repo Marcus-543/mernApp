@@ -30,27 +30,15 @@ const findAllController = async (req, res) => {
 
 	if (users.length === 0) {
 		res.status(400).send({ message: "nenhum usuario cadastrad" })
-
 	}
 
 	res.send(users)
 }
 
 const findByIdController = async (req, res) => {
-	const id = req.params.id
-
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		res.status(400).send({ message: "invalid ID" })
-	}
-
-	const user = await UserService.findByIdService(id)
-
-	if (!user) {
-		send.status(400).send({ message: "user not found" })
-	}
+	const user = req.user
 
 	res.send(user)
-
 }
 
 const updateController = async (req, res) => {
@@ -60,17 +48,7 @@ const updateController = async (req, res) => {
 		res.status(400).send({ message: 'submit at least one fields for update' })
 	}
 
-	const id = req.params.id
-
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		res.status(400).send({ message: "invalid ID" })
-	}
-
-	const user = await UserService.findByIdService(id)
-
-	if (!user) {
-		res.status(400).send({ message: 'user not found' })
-	}
+	const {id, user} = req
 
 	await UserService.updateService(
 		id, 
@@ -81,7 +59,6 @@ const updateController = async (req, res) => {
 		)
 
 	res.send({ message: "user update successfully" })
-
 }
 
 module.exports = { create, findAllController, findByIdController, updateController, }
