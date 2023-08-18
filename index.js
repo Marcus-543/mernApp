@@ -9,5 +9,4 @@ connectDatabase()
 app.use(express.json())
 app.use('/user', userRoute)
 
-
 app.listen(5000, () => console.log('servidor rodando na porta '+port))
