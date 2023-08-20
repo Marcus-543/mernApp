@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const connectDatabase = () => {
     console.log("waite for connection database")
     mongoose.connect("mongodb+srv://user:user@cluster0.oemqmpn.mongodb.net/?retryWrites=true&w=majority", {
@@ -6,4 +6,4 @@ const connectDatabase = () => {
         useUnifiedTopology: true
     }).then(() => console.log("mongodb connected")).catch((error) => console.log(error))
 }
-module.exports = connectDatabase
+export default connectDatabase

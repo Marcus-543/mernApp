@@ -1,5 +1,5 @@
-const UserService = require('../services/user.service')
-const mongoose = require('mongoose')
+import UserService from '../services/user.service.js'
+import mongoose from 'mongoose'
 const create = async (req, res) => {
     try {
         const {
@@ -86,7 +86,7 @@ const updateController = async (req, res) => {
         })
     }
 }
-module.exports = {
+export default {
     create,
     findAllController,
     findByIdController,
