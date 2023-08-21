@@ -1,6 +1,7 @@
 import UserService from '../services/user.service.js'
 import mongoose from 'mongoose'
-const create = async (req, res) => {
+
+const createController = async (req, res) => {
     try {
         const {
             name,
@@ -13,7 +14,7 @@ const create = async (req, res) => {
                 message: "submit all fields"
             })
         }
-        const user = await UserService.create(req.body)
+        const user = await UserService.createService(req.body)
         if (!user) {
             return res.status(400).send({
                 message: "Error creating user"
@@ -87,7 +88,7 @@ const updateController = async (req, res) => {
     }
 }
 export default {
-    create,
+    createController,
     findAllController,
     findByIdController,
     updateController,
