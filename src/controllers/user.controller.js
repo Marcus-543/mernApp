@@ -1,7 +1,8 @@
-import UserService from '../services/user.service.js'
+import { createService, findAllService, findByIdService, 
+updateService } from '../services/user.service.js'
 import mongoose from 'mongoose'
 
-const createController = async (req, res) => {
+const create = async (req, res) => {
     try {
         const {
             name,
@@ -14,7 +15,7 @@ const createController = async (req, res) => {
                 message: "submit all fields"
             })
         }
-        const user = await UserService.createService(req.body)
+        const user = await createService(req.body)
         if (!user) {
             return res.status(400).send({
                 message: "Error creating user"
@@ -35,9 +36,9 @@ const createController = async (req, res) => {
         })
     }
 }
-const findAllController = async (req, res) => {
+const findAll = async (req, res) => {
     try {
-        const users = await UserService.findAllService()
+        const users = await findAllService()
         if (users.length === 0) {
             res.status(400).send({
                 message: "nenhum usuario cadastrad"
@@ -50,7 +51,7 @@ const findAllController = async (req, res) => {
         })
     }
 }
-const findByIdController = async (req, res) => {
+const findById = async (req, res) => {
     try {
         const user = req.user
         res.send(user)
@@ -60,7 +61,7 @@ const findByIdController = async (req, res) => {
         })
     }
 }
-const updateController = async (req, res) => {
+const update = async (req, res) => {
     try {
         const {
             name,
@@ -77,7 +78,7 @@ const updateController = async (req, res) => {
             id,
             user
         } = req
-        await UserService.updateService(id, name, username, email, password, )
+        await updateService(id, name, username, email, password, )
         res.send({
             message: "user update successfully"
         })
@@ -87,9 +88,9 @@ const updateController = async (req, res) => {
         })
     }
 }
-export default {
-    createController,
-    findAllController,
-    findByIdController,
-    updateController,
+export {
+    create,
+    findAll,
+    findById,
+    update
 }

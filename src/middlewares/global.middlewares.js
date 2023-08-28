@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
-import UserService from '../services/user.service.js'
+import { findByIdService } from '../services/user.service.js'
+
 const validId = (req, res, next) => {
     try {
         const id = req.params.id
@@ -15,6 +16,7 @@ const validId = (req, res, next) => {
         })
     }
 }
+
 const validUser = async (req, res, next) => {
     try {
         const id = req.params.id
@@ -34,7 +36,7 @@ const validUser = async (req, res, next) => {
     }
 }
 
-export default {
+export {
     validId,
     validUser
 }

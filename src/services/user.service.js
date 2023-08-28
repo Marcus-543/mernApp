@@ -11,9 +11,9 @@ const updateService = (id, name, username, email, password, ) => User.findOneAnd
     email,
     password,
 })
-export default {
+export {
     createService,
     findAllService,
     findByIdService,
-    updateService,
+    updateService
 }

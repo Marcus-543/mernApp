@@ -5,7 +5,7 @@ const create = async (req, res) => {
     try {
         const {
             title,
-            text,
+            text
         } = req.body
 
         if (!title || !text) {
@@ -17,7 +17,7 @@ const create = async (req, res) => {
         const news = await createService({
         	title,
         	text,
-        	user: { _id: "64ea1239d9d4ad11d8976c48"},
+        	user: req.userId
         })
 
         if (!news) {
@@ -31,7 +31,7 @@ const create = async (req, res) => {
             news: {
                 id: news._id,
                 title,
-                text,
+                text
             }
         })
     } catch (err) {
@@ -59,5 +59,5 @@ const findAll = async (req, res) => {
 
 export {
     create,
-    findAll,
+    findAll
 }
