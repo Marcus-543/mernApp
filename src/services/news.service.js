@@ -1,29 +1,24 @@
 import News from '../models/News.js'
 
-const createService = (body) => News.create(body)
+export const createService = (body) => News.create(body)
 
-const findAllService = (limit, offset) => News.find().sort({
+export const findAllService = (limit, offset) => News.find().sort({
     _id: -1
 }).skip(offset).limit(limit).populate("user")
 
-const countNews = () => News.countDocuments()
+export const countNews = () => News.countDocuments()
 
-const topNewsService = () => News.findOne().sort({ _id: -1 }).populate("user")
+export const topNewsService = () => News.findOne().sort({ _id: -1 }).populate("user")
 
-const findByIdService = (id) => News.findById(id).populate("user")
+export const findByIdService = (id) => News.findById(id).populate("user")
 
-const searchByTitleService = (title) => News.find({
+export const searchByTitleService = (title) => News.find({
 	title: { $regex: '${title || ""}', $options: "i" },
 }).sort({ _id: -1 }).populate("user")
 
-const byUserService = (id) => News.find({ user: id }).sort({ _id: -1 }).populate("user")
+export const byUserService = (id) => News.find({ user: id }).sort({ _id: -1 }).populate("user")
 
-export {
-	createService,
-	findAllService,
-	countNews,
-	topNewsService,
-	findByIdService,
-	searchByTitleService,
-	byUserService
-}
+export const updateService = (id, title, text) => News.findOneAndUpdate(
+	{ _id: id },
+	{ title: title, text: text },
+	{ rowResult: true })

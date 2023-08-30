@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
     createService,
     findAllService,
@@ -5,10 +6,11 @@ import {
     topNewsService,
     findByIdService,
     searchByTitleService,
-    byUserService
+    byUserService,
+    updateService
 } from '../services/news.service.js'
-import mongoose from 'mongoose'
-const create = async (req, res) => {
+
+export const create = async (req, res) => {
     try {
         const {
             title,
@@ -43,7 +45,8 @@ const create = async (req, res) => {
         })
     }
 }
-const findAll = async (req, res) => {
+
+export const findAll = async (req, res) => {
     try {
         let {
             limit,
@@ -92,7 +95,7 @@ const findAll = async (req, res) => {
     }
 }
 
-const topNews = async (req, res) => {
+export const topNews = async (req, res) => {
     try{
         const news = await topNewsService()
 
@@ -118,7 +121,7 @@ const topNews = async (req, res) => {
     }
 }
 
-const findById = async (req, res) => {
+export const findById = async (req, res) => {
     try{
         const { id } = req.params
         const news = await findByIdService(id)
@@ -146,7 +149,7 @@ const findById = async (req, res) => {
     }
 }
 
-const searchByTitle = async (req, res) => {
+export const searchByTitle = async (req, res) => {
     try{
         const {title} = req.query
 
@@ -175,7 +178,7 @@ const searchByTitle = async (req, res) => {
     }
 }
 
-const byUser = async (req, res) => {
+export const byUser = async (req, res) => {
     try{
         const id = req.userId
         const news = await byUserService(id)
@@ -199,11 +202,30 @@ const byUser = async (req, res) => {
     }
 }
 
-export {
-    create,
-    findAll,
-    topNews,
-    findById,
-    searchByTitle,
-    byUser
+export const update = async (req, res) => {
+    try{
+        const { title, text } = req.body
+        const { id } = req.params
+
+        if (!title && !text) {
+            return res.status(400).send({
+                message: "submit fields"
+            })
+        }
+
+        const news = await findByIdService(id) 
+
+        if (String(news.user._id) !== String(req.userId)) {
+            res.status(400).send({ message: "you didn't update this post" })
+        }
+
+        await updateService(id, title, text)
+
+        return res.status(201).send({ message: "post updated successfully" })
+        
+    } catch (err) {
+        res.status(500).send({
+            message: err.message
+        })
+    }
 }
