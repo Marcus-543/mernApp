@@ -20,7 +20,6 @@ const loginController = async (req, res) => {
         }
 
         const token = generateToken(user.id)
-
         res.send({ token: token })
 
     } catch (err) {
