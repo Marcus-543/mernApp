@@ -8,7 +8,8 @@ import {
     findById,
     searchByTitle,
     byUser,
-    update
+    update,
+    erase
 } from '../controllers/news.controller.js'
 
 const newsRouter = Router()
@@ -20,5 +21,6 @@ newsRouter.get('/search', searchByTitle)
 newsRouter.get('/byUser', authMiddleware, byUser)
 newsRouter.get('/:id', authMiddleware, findById)
 newsRouter.patch('/:id', authMiddleware, update)
+newsRouter.delete('/:id', authMiddleware, erase)
 
 export default newsRouter

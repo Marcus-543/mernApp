@@ -22,3 +22,5 @@ export const updateService = (id, title, text) => News.findOneAndUpdate(
 	{ _id: id },
 	{ title: title, text: text },
 	{ rowResult: true })
+
+export const eraseService = (id) => News.findByIdAndDelete({ _id: id })
