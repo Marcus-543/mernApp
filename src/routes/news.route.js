@@ -10,7 +10,9 @@ import {
     byUser,
     update,
     erase,
-    likeNews
+    likeNews,
+    addComment,
+    deleteComment
 } from '../controllers/news.controller.js'
 
 const newsRouter = Router()
@@ -24,5 +26,7 @@ newsRouter.get('/:id', authMiddleware, findById)
 newsRouter.patch('/:id', authMiddleware, update)
 newsRouter.delete('/:id', authMiddleware, erase)
 newsRouter.patch('/like/:id', authMiddleware, likeNews)
+newsRouter.patch('/comment/:id', authMiddleware, addComment)
+newsRouter.patch('/comment/:idNews/:idComment', authMiddleware, deleteComment)
 
 export default newsRouter
